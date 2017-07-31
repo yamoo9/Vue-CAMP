@@ -314,7 +314,7 @@ export default {
 
 이 플러그인을 설치하려면 다음의 과정을 진행해보세요.
 
-```js
+```sh
 # babel-plugin-jsx-event-modifiers 개발 모듈을 설치합니다.
 npm install babel-plugin-jsx-event-modifiers --save-dev
 # Yarn 을 사용해 설치할 수도 있습니다.
