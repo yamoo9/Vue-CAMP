@@ -64,7 +64,9 @@ module.exports = {
 
 ## 3. `App.vue` 파일 내부에서 웹폰트 사용 설정
 
-`src/App.vue` 파일을 연 후, 스타일 코드 작성 영역 상단에 `@import 'sass/mixins'` 코드를 추가한 후, `+spoqa('./assets/SpoqaHanSans')` 믹스인 호출 코드를 추가합니다. 마무리로 body 영역에서 `font-family: 'Spoqa Han Sans'` 웹폰트를 사용하는 코드를 작성합니다.
+`src/App.vue` 파일을 연 후, 스타일 코드 작성 영역 상단에 `@import 'sass/mixins'` 코드를 추가한 후, `+spoqa('./assets/SpoqaHanSans')` 믹스인 호출 코드를 추가합니다.
+
+마무리로 body 영역에서 `font-family: 'Spoqa Han Sans'` 웹폰트를 사용하는 코드를 작성합니다.
 
 ```sass
 // src/App.vue
@@ -103,3 +105,5 @@ $ yarn build
 생성된 디렉토리 `dist` 내부를 살펴보면 `fonts` 디렉토리 안에 사용한 웹폰트가 포함된 것을 확인할 수 있습니다.
 
 ![](../Assets/dist-static-fonts.jpg)
+
+<!-- https://github.com/vuejs/vue-loader/issues/328#issuecomment-249175224 -->
