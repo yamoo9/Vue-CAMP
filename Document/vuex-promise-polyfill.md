@@ -9,14 +9,20 @@ npm install es6-promise
 자동으로 폴리필을 적용하려면 다음과 같이 사용합니다.
 
 ```js
+import Primise from 'es6-promise';
+Primise.polyfill();
+```
+
+또는 아래와 같이 단축 사용도 가능합니다.
+
+```js
 import 'es6-promise/auto';
-es6Primise.polyfill();
 ```
 
 설정 방법은 다음을 참고하세요.
 
 ```js
-// main.js
+// src/main.js
 import 'es6-promise/auto';
 
 import Vue      from 'vue';
