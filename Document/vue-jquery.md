@@ -193,14 +193,16 @@ Monthly 플러그인을 Date Picker로 적용할 경우, 사용자가 클릭한 
 `<input>`을 조건부 처리하기 위한 값은 computed 속성 `mode_picker`의 결과입니다.
 사용자가 전달한 옵션 객체의 `mode` 속성 값이 `'picker'`일 경우 값이 참이 되어 `<input>`이 렌더링 되게 됩니다.
 
-사용자가 외부에서 전달할 `target` 속성 값은 `<input>` 요소의 `id` 값으로 동적 바인딩 설정되도록 `:id` 값으로 `'target'`을 설정합니다.
+mounted 라이프 사이클 훅 함수 내부에서, 전달된 `options.target` 값을 토대로 `#`을 제거한 후 컴포넌트 템플릿 내부 `<input>` 요소에 `id` 속성을 설정한다.
+
+<!-- 사용자가 외부에서 전달할 `target` 속성 값은 `<input>` 요소의 `id` 값으로 동적 바인딩 설정되도록 `:id` 값으로 `'target'`을 설정합니다. -->
 
 ```js
 Vue.component('y9-monthly', {
   // 루트 엘리먼트 추가 및 인풋 요소 추가
   template: '\
     <div class="y9-monthly-wrapper">\
-      <input :id="target" type="text" v-if="mode_picker">\
+      <input type="text" v-if="mode_picker">\
       <div class="y9-monthly"></div>\
     </div>\
   ',
@@ -208,15 +210,13 @@ Vue.component('y9-monthly', {
     options: {
       type: Object,
       default: {}
-    },
-    // 사용자가 전달한 target 값은 인풋 요소의 id로 설정 됨.
-    target: {
-      type: String,
-      default: ''
     }
   },
   mounted: function(){
     $(this.$el).monthly(this.options);
+    // '#unique-id' 값에서 '#' 제거한 값을 target_id 변수에 할당
+    var target_id = this.options.target.replace('#','');
+    this.$el.querySelector('input').setAttribute('id', target_id);
   },
   // 옵션 mode 값이 picker 일 경우, 계산된 값을 반환하는 속성 mode_picker 정의
   computed: {
@@ -227,8 +227,8 @@ Vue.component('y9-monthly', {
 });
 ```
 
-[Monthly 플러그인 Date Picker 옵션 사용법](https://github.com/kthornbloom/Monthly/wiki/Date-Picker)을 참고하여 아래와 같이 Vue 인스턴스 내부에 데이터 속성 값을 설정할 경우,
-Date Picker로 플러그인이 사용됩니다.
+[Monthly 플러그인 Date Picker 옵션 사용법](https://github.com/kthornbloom/Monthly/wiki/Date-Picker)을 참고하여
+아래와 같이 Vue 인스턴스 내부에 데이터 속성 값을 설정할 경우, Date Picker로 플러그인이 사용됩니다.
 
 ```js
 var app = new Vue({
@@ -251,11 +251,11 @@ var app = new Vue({
 })
 ```
 
-마무리로 컴포넌트에 `options`, `target` 속성을 설정하여 Date Picker 플러그인을 사용합니다.
+<!-- 마무리로 컴포넌트에 `options`, `target` 속성을 설정하여 Date Picker 플러그인을 사용합니다.
 
 ```html
   <y9-monthly :options="monthly_options" target="unique-id" v-once></y9-monthly>
-```
+``` -->
 
 ### 상위 컴포넌트에 이벤트를 발생시켜 데이터 전달
 
@@ -274,7 +274,7 @@ Vue.component('y9-monthly', {
   // :date 데이터 속성 date 값 변경 시, 동적 바인딩
   template: '\
     <div class="y9-monthly-wrapper">\
-      <input :id="target" type="text" v-if="mode_picker" @input="selectDate" :value="date">\
+      <input type="text" v-if="mode_picker" @input="selectDate" :value="date">\
       <div class="y9-monthly"></div>\
     </div>\
   ',
@@ -282,15 +282,12 @@ Vue.component('y9-monthly', {
     options: {
       type: Object,
       default: {}
-    },
-    // 사용자가 전달한 target 값은 인풋 요소의 id로 설정 됨.
-    target: {
-      type: String,
-      default: ''
     }
   },
   mounted: function(){
     $(this.$el).monthly(this.options);
+    var target_id = this.options.target.replace('#','');
+    this.$el.querySelector('input').setAttribute('id', target_id);
   },
   // <input> 요소의 값으로 처리될 date 속성 추가
   data: function(){
@@ -311,6 +308,12 @@ Vue.component('y9-monthly', {
       // 상위 컴포넌트와 통신
       // update-date 이벤트 키에 value 전달
       this.$emit('update-date', value);
+      // 이벤트 버스 객체를 사용할 경우
+      // EventBus.$emit('update-date', value);
+      // Vuex, actions에 등록된 메서드를 사용할 경우
+      // this.$store.dispatch('update-date', value);
+      // Vuex, mutations에 등록된 메서드를 사용할 경우
+      // this.$store.commit('update-date', value);
     }
   }
 });
