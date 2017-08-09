@@ -31,7 +31,7 @@ jQuery 플러그인을 Vue 컴포넌트로 래핑하면 다음의 것을 수행�
 플러그인을 사용하기 위해서는 `jquery.js`, `monthly.js` 파일을 모두 로드한 후, 플러그인을 적용할 `<div>` 요소에 식별자를 설정한 다음, `$('#my-calendar').monthly();` 플러그인을 설정하면 됩니다.
 
 ```html
-<! DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ko-KR">
   <head>
     ...
@@ -187,7 +187,6 @@ app.monthly_options.weekStart = 'Sun';
 ### Date Picker 플러그인으로 사용하려면?
 
 Monthly 플러그인을 Date Picker로 적용할 경우, 사용자가 클릭한 달력 날짜를 `<input>` 요소의 값으로 설정됩니다. (`<input>` 요소 추가 필요)
-
 컴포넌트 코드를 아래와 같이 변경합니다. 컴포넌트는 1개의 루트 요소만을 허용하기에 `.y9-monthly-wrapper` 래퍼 요소를 추가하고,
 내부에 `<input>` 요소를 추가한 후, `v-if` 디렉티브 값에 따라 조건부 렌더링 되도록 처리합니다.
 
@@ -344,6 +343,6 @@ var app = new Vue({
 });
 ```
 
-이로서 jQuery 플러그인을 VueJS 애플리케이션에서 안전하게 사용하는 방법을 살펴봤습니다.
+jQuery 플러그인을 VueJS 애플리케이션에서 안전하게 사용하는 방법을 스텝 별로 살펴보며 정리 해봤습니다.
 
 <!-- https://vuejsdevelopers.com/2017/05/20/vue-js-safely-jquery-plugin/ -->
