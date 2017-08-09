@@ -97,7 +97,8 @@ Vue.component('y9-monthly', {
   // 라이프 사이클 훅 함수: 마운트 된 이후 시점에 실행
   mounted: function(){
     // 컴포넌트 요소에 jQuery 플러그인 적용
-    $(this.$el).monthly({
+    var $el = $(this.$el);
+    $el.monthly({
       weekStart: 'Mon',
       mode: 'event',
       dataType: 'json',
@@ -123,7 +124,8 @@ Vue.component('y9-monthly', {
     }
   },
   mounted: function(){
-    $(this.$el).monthly(this.options);
+    var $el = $(this.$el);
+    $el.monthly(this.options);
   }
 });
 ```
@@ -213,10 +215,10 @@ Vue.component('y9-monthly', {
     }
   },
   mounted: function(){
-    $(this.$el).monthly(this.options);
+    var $el = $(this.$el);
     // '#unique-id' 값에서 '#' 제거한 값을 target_id 변수에 할당
-    var target_id = this.options.target.replace('#','');
-    this.$el.querySelector('input').setAttribute('id', target_id);
+    $el.attr('id', this.options.target.replace('#',''));
+    $el.monthly(this.options);
   },
   // 옵션 mode 값이 picker 일 경우, 계산된 값을 반환하는 속성 mode_picker 정의
   computed: {
@@ -285,9 +287,9 @@ Vue.component('y9-monthly', {
     }
   },
   mounted: function(){
-    $(this.$el).monthly(this.options);
-    var target_id = this.options.target.replace('#','');
-    this.$el.querySelector('input').setAttribute('id', target_id);
+    var $el = $(this.$el);
+    $el.attr('id', this.options.target.replace('#',''));
+    $el.monthly(this.options);
   },
   // <input> 요소의 값으로 처리될 date 속성 추가
   data: function(){
